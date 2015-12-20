@@ -1,0 +1,9 @@
+***** Shortcodes *****
+
+[site-url] = http://seudominio.com.br
+[url-midia] = http://seudominio.com.br/wp-content/themes/theme-agata
+[template-url] - http://seudominio.com.br/wp-content/uploads/
+
+E-mail protegido
+[mailto]email@yourdomain.com[/mailto]
+

@@ -1,0 +1,83 @@
+body.login{
+        background-image: url(bg-login.jpg);
+        -webkit-background-size: cover;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+    div#login {
+        width: 100%;
+        max-width: 360px;
+        padding-top: 5%;
+    }
+        .login h1 a {
+            background-image: url(logotipo-agatha-branco.png);
+            width: 100%;
+            display: block;
+            background-size: auto 100%;
+            height: 180px;
+        }
+        .login form {
+            background-color: rgba(0, 1, 23, 0.41);
+            position: relative;
+        }
+        .login form label {
+            color: #FFF;
+        }
+        .login input#user_login {
+            background-image: url(icon-user.png);
+        }
+        .login input#user_pass {
+            background-image: url(icon-lock.png);
+        }
+        .login input#user_login, .login input#user_pass {
+            background-position: 5px;
+            background-size: 20px;
+            background-repeat: no-repeat;
+            padding-left: 35px;
+        }
+        .login input#wp-submit {
+            width: 100%;
+            margin-top: 15px;
+            padding: 22px;
+            line-height: 0;
+            font-size: 18px;
+            background-color: #0055D4;
+            font-weight: bold;
+            border: 0;
+            box-shadow: none;
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+            -ms-transition: all 0.5s;
+            -o-transition: all 0.5s;
+            transition: all 0.5s;
+
+        }
+            .login input#wp-submit:hover{
+                background-image: url(icon-paper.png);
+                background-position-y: 13px;
+                background-position-x: center;
+                background-size: 20px;
+                background-repeat: no-repeat;
+                background-color: #010066;
+                color: transparent;
+                padding-left: 35px;
+                -webkit-transition: all 0.5s;
+                -moz-transition: all 0.5s;
+                -ms-transition: all 0.5s;
+                -o-transition: all 0.5s;
+                transition: all 0.5s;
+
+            }
+        .login p#nav {
+            position: relative;
+            top: -57px;
+            text-align: right;
+        }
+            .login p#nav a, .login p#backtoblog a {
+                color: rgba(245, 245, 245, 0.78);
+            }
+        .login p#backtoblog {
+            top: -91px;
+            position: relative;
+            text-align: left;
+        }

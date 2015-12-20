@@ -1,0 +1,135 @@
+/*
+===============================================
+
+	Theme Name: Framework - Ágatha
+    Theme URI: http://ericsoncardoso.com.br/framemework-agatha
+	Description: Framework limpo, bem codificado, desenvolvido em em HTML5, CSS3, LESS, Option Tree Framework, Ajax, Jquery, Font Awesome Icons e Animated CSS. Este framework é perfeito para construir temas personalizados e já vem com muitos recursos prontos e de fácil alteração.
+	Version: 1.1.2
+	Author: Ericson Cardoso
+	Author URI: http://ericsoncardoso.com.br/
+	License: GNU General Public License
+	License URI: http://www.gnu.org/licenses/gpl-3.0.html
+	Tags: clean, white, responsive, speed
+
+	Table of contents:
+
+	- CSS Reset
+	- Importações de fontes e folhas de estilos
+	- Layout
+	- Typography
+	- Header
+	- Navegação
+	- Footer
+	- Blog
+
+	OBS: Todas os estilos fora que não pertemcem a matriz do site procure manter na pasat includes/css do tema. Inclusive lá você encontrará as folhas de estilo das demais sessões;
+
+===============================================
+*/
+
+/* Reset */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	zoom:1;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+ol, ul {
+	list-style: none;
+}
+li {
+	list-style: none;
+}
+a, a:hover, a:visited; a:focus, a:link{
+	text-decoration: none;
+	-webkit-transition: 0.3s;
+	-moz-transition: 0.3s;
+	-ms-transition: 0.3s;
+	-o-transition: 0.3s;
+	transition: 0.3s;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+ul {
+	list-style: disc inside;
+	margin-bottom: 25px;
+}
+	ul > li > ul,
+	ol > li > ol {
+		margin-left: 25px;
+	}
+ol {
+	list-style: decimal inside;
+	margin-bottom: 25px;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section {
+    display:block;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+img{
+	max-width: 100%;
+	height: auto;
+}
+
+.clearfix:after, .clearfix:before
+{
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.clearfix
+{
+  *zoom: 1;
+}
+
+/* Importações de Estilo */
+
+@import "includes/css/style-less.css";
+
+/* LAYOUT */
+
+#toTop {
+	background: none repeat scroll 0 0 #f7f7f7;
+	border: 1px solid #ccc;
+	bottom: 10px;
+	color: #333;
+	cursor: pointer;
+	display: none;
+	font-family: verdana;
+	font-size: 11px;
+	padding: 5px;
+	position: fixed;
+	right: 10px;
+	text-align: center;
+	width: 100px;
+}
+
+.marca { background: #dfc;}
+
+/* POST RELACIONADOS */
