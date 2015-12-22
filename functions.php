@@ -9,21 +9,7 @@ Se precisar alterar alguma função padrão ou adicionar uma nova vá em include
 ===========================================================================================================
 */
 
-// Option Tree Framework
-add_filter( 'ot_theme_mode', '__return_true' );
-
-/**
- * Required: include OptionTree.
- */
-require( trailingslashit( get_template_directory() ) . 'admin/option-tree/ot-loader.php' );
-
-/**
- * Opções do Tema
- */
-require( trailingslashit( get_template_directory() ) . 'admin/option-tree/theme-options.php' );
-
-require( get_template_directory() . '/resource/function/require-plugins.php' );
-require( get_template_directory() . '/admin/panel/painel.php' );
+require( get_template_directory() . '/admin/painel/painel.php' );
 require( get_template_directory() . '/admin/login/login.php' );
 
 // Copyright
@@ -127,33 +113,6 @@ add_filter('widget_text', 'shortcode_unautop');
 add_filter('widget_text', 'do_shortcode');
 add_filter('the_content_rss', 'do_shortcode');
 
-// Jquery UI - CND Google
-function load_jquery_ui_google_cdn() {
-	global $wp_scripts;
-
-	wp_enqueue_script('jquery-ui-core');
-	wp_enqueue_script('jquery-ui-slider');
-
-    // get the jquery ui object
-	$queryui = $wp_scripts->query('jquery-ui-core');
-
-    // load the jquery ui theme
-	$url = "http//ajax.googleapis.com/ajax/libs/jqueryui/".$queryui->ver."/themes/smoothness/jquery-ui.css";
-	wp_enqueue_style('jquery-ui-smoothness', $url, false, null);
-}
-
-add_action('wp_enqueue_scripts', 'load_jquery_ui_google_cdn');
-
-// Inicia uma sessão
-if ( ! function_exists( 'agatha_session_start' ) ) {
-    // Cria a função
-	function agatha_session_start() {
-        // Inicia uma sessão PHP
-		if ( ! session_id() ) session_start();
-	}
-    // Executa a ação
-	add_action( 'init', 'agatha_session_start' );
-}
 
 // Add Post Meta
 if ( ! function_exists( 'agatha_count_post_views' ) ) {
@@ -198,34 +157,20 @@ if ( ! function_exists( 'agatha_count_post_views' ) ) {
 
 /* FUNÇÕES DO TEMA */
 
-require( get_template_directory() . '/includes/function/breadcrumbs.php' );
-require( get_template_directory() . '/includes/function/post-populares.php' );
-require( get_template_directory() . '/includes/widgets/widgets.php' );
-require( get_template_directory() . '/includes/function/perfil.php' );
-require( get_template_directory() . '/includes/function/posts-relacionados.php' );
+require( get_template_directory() . '/resource/function/breadcrumbs.php' );
+require( get_template_directory() . '/resource/function/post-populares.php' );
+require( get_template_directory() . '/resource/widgets/widgets.php' );
+require( get_template_directory() . '/resource/function/perfil.php' );
+require( get_template_directory() . '/resource/function/posts-relacionados.php' );
 
 define( 'PW_URL', get_home_url() . '/' );
 define( 'PW_URL_THEME', get_bloginfo( 'template_url' ) . '/' );
 define( 'PW_SITE_NAME', get_bloginfo( 'title' ) );
 
 
-$siteUrl = get_bloginfo('url');
-$siteTemplate = get_bloginfo('template_url');
+$Url = get_bloginfo('url');
+$Template = get_bloginfo('template_url');
 
-function fn_siteUrl(){
-	return get_bloginfo('url');
-}
-add_shortcode('site-url','fn_siteUrl');
-
-function fn_siteTemplate(){
-	return get_bloginfo('template_url');
-}
-add_shortcode('template-url','fn_siteTemplate');
-
-function fn_urlMidia(){
-	return get_bloginfo('url') . "/wp-content/uploads/";
-}
-add_shortcode('url-midia','fn_urlMidia');
 
 function cwc_mail_shortcode( $atts , $content=null ) {
 	for ($i = 0; $i < strlen($content); $i++) $encodedmail .= "&#" . ord($content[$i]) . ';';
@@ -263,32 +208,6 @@ function fb_change_mce_options($initArray) {
 	return $initArray;
 }
 add_filter('tiny_mce_before_init', 'fb_change_mce_options');
-
-// CUSTOM ADMIN MENU LINK FOR ALL SETTINGS
-function all_settings_link() {
-	add_options_page(__('All Settings'), __('All Settings'), 'administrator', 'options.php');
-}
-add_action('admin_menu', 'all_settings_link');
-
-// REMOVE THE WORDPRESS UPDATE NOTIFICATION FOR ALL USERS EXCEPT SYSADMIN
-global $user_login;
-get_currentuserinfo();
-   if (!current_user_can('update_plugins')) { // checks to see if current user can update plugins
-   	add_action( 'init', create_function( '$a', "remove_action( 'init', 'wp_version_check' );" ), 2 );
-   	add_filter( 'pre_option_update_core', create_function( '$a', "return null;" ) );
-   }
-
-// SHORTCODE GOOGLE MAPA
-   function fn_googleMaps($atts, $content = null) {
-   	extract(shortcode_atts(array(
-   		"width" => '640',
-   		"height" => '480',
-   		"src" => ''
-   		), $atts));
-   	return '<iframe width="'.$width.'" height="'.$height.'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="'.$src.'"></iframe>';
-   }
-   add_shortcode("googlemap", "fn_googleMaps");
-   /* [googlemap width="600" height"360" src="http://google.com/maps/?ie=..."] */
 
 
 // PAGINAÇÃO
@@ -358,55 +277,204 @@ get_currentuserinfo();
 // REGISTRO DE SCRIPT
    function agatha_scripts() {
 
-   	wp_register_script( 'Script do Tema', get_template_directory_uri() .'/includes/script/agatha-script.min.js', false, '1.0', true );
+   	wp_register_script( 'Script do Tema', get_template_directory_uri() .'/resource/script/agatha-script.min.js', false, '1.0', true );
    	wp_enqueue_script( 'Script do Tema' );
 
-   	wp_register_script( 'Customização de Script', get_template_directory_uri() .'/includes/script/script-customization.js', false, '1.0', true );
+   	wp_register_script( 'Customização de Script', get_template_directory_uri() .'/resource/script/script-customization.js', false, '1.0', true );
    	wp_enqueue_script( 'Customização de Script' );
 
    }
    add_action( 'wp_enqueue_scripts', 'agatha_scripts' );
 
-// Register Script
-   function preloaderScripts() {
-
-   	wp_register_script( 'classie', get_template_directory_uri() .'/template/preloading/js/classie.js', false, false, true );
-   	wp_enqueue_script( 'classie' );
-
-   	wp_register_script( 'pathLoader', get_template_directory_uri() .'/template/preloading/js/pathLoader.js', false, false, true );
-   	wp_enqueue_script( 'pathLoader' );
-
-   	wp_register_script( 'main', get_template_directory_uri() .'/template/preloading/js/main.js', false, false, true );
-   	wp_enqueue_script( 'main' );
-
-   	wp_register_script( 'custom', get_template_directory_uri() .'/template/preloading/js/modernizr.custom.js', false, false, false );
-   	wp_enqueue_script( 'custom' );
-
-   }
-   add_action( 'wp_enqueue_scripts', 'preloaderScripts' );
+// Theme the TinyMCE editor
+// You should create custom-editor-style.css in your theme folder
+add_editor_style('custom-editor-style.css');
 
 
-// REGISTRO DE STYLE
-
-   function preloaderStyles() {
-
-   	wp_register_style( 'effect1', get_template_directory_uri() .'/template/preloading/css/effect1.css', false, false );
-   	wp_enqueue_style( 'effect1' );
-
-   }
-   add_action( 'wp_enqueue_scripts', 'preloaderStyles' );
+// Enable thumbnails
+add_theme_support( 'post-thumbnails' );
+set_post_thumbnail_size(200, 200, true); // Normal post thumbnails
 
 
-   function header_styles() {
-
-   	wp_register_style( 'Header', get_template_directory_uri() .'/template/header/'. ot_get_option( 'modelo-header', '', false, true, 0 ) .'/style.css', false, '1.0' );
-   	wp_enqueue_style( 'Header' );
-
-   	wp_register_style( 'Header Responsive', get_template_directory_uri() .'/template/header/'. ot_get_option( 'modelo-header', '', false, true, 0 ) .'/responsive.css', false, '1.0' );
-   	wp_enqueue_style( 'Header Responsive' );
-
-   }
-   add_action( 'wp_enqueue_scripts', 'header_styles' );
+// Custom CSS for the login page
+// Create wp-login.css in your theme folder
+function wpfme_loginCSS() {
+  echo '<link rel="stylesheet" type="text/css" href="'.get_bloginfo('template_directory').'/wp-login.css"/>';
+}
+add_action('login_head', 'wpfme_loginCSS');
 
 
-   ?>
+// Enable widgetable sidebar
+// You may need to tweak your theme files, more info here - http://codex.wordpress.org/Widgetizing_Themes
+if ( function_exists('register_sidebar') )
+  register_sidebar(array(
+  'before_widget' => '<aside>',
+  'after_widget' => '</aside>',
+  'before_title' => '<h1>',
+  'after_title' => '</h1>',
+));
+
+
+// Remove the admin bar from the front end
+add_filter( 'show_admin_bar', '__return_false' );
+
+
+// Customise the footer in admin area
+function wpfme_footer_admin () {
+  echo 'Theme designed and developed by <a href="#" target="_blank">YourNameHere</a> and powered by <a href="http://wordpress.org" target="_blank">WordPress</a>.';
+}
+add_filter('admin_footer_text', 'wpfme_footer_admin');
+
+
+// Set a maximum width for Oembedded objects
+if ( ! isset( $content_width ) )
+$content_width = 660;
+
+
+// Add default posts and comments RSS feed links to head
+add_theme_support( 'automatic-feed-links' );
+
+
+// Put post thumbnails into rss feed
+function wpfme_feed_post_thumbnail($content) {
+  global $post;
+  if(has_post_thumbnail($post->ID)) {
+    $content = '' . $content;
+  }
+  return $content;
+}
+add_filter('the_excerpt_rss', 'wpfme_feed_post_thumbnail');
+add_filter('the_content_feed', 'wpfme_feed_post_thumbnail');
+
+
+// Add custom menus
+register_nav_menus( array(
+  'primary' => __( 'Primary Navigation', 'wpfme' ),
+  //'example' => __( 'Example Navigation', 'wpfme' ),
+) );
+
+
+// Custom CSS for the whole admin area
+// Create wp-admin.css in your theme folder
+function wpfme_adminCSS() {
+  echo '<link rel="stylesheet" type="text/css" href="'.get_bloginfo('template_directory').'/wp-admin.css"/>';
+}
+add_action('admin_head', 'wpfme_adminCSS');
+
+
+// Enable admin to set custom background images in 'appearance > background'
+add_custom_background();
+
+
+// Randomly chosen placeholder text for post/page edit screen
+function wpfme_writing_encouragement( $content ) {
+  global $post_type;
+  if($post_type == "post"){
+  $encArray = array(
+    // Placeholders for the posts editor
+    "Test post message one.",
+    "Test post message two.",
+    "<h1>Test post heading!</h1>"
+    );
+    return $encArray[array_rand($encArray)];
+  }
+  else{ $encArray = array(
+    // Placeholders for the pages editor
+    "Test page message one.",
+    "Test page message two.",
+    "<h1>Test Page Heading</h1>"
+    );
+    return $encArray[array_rand($encArray)];
+  }
+}
+add_filter( 'default_content', 'wpfme_writing_encouragement' );
+
+
+//change amount of posts on the search page - set here to 100
+function wpfme_search_results_per_page( $query ) {
+  global $wp_the_query;
+  if ( ( ! is_admin() ) && ( $query === $wp_the_query ) && ( $query->is_search() ) ) {
+  $query->set( 'wpfme_search_results_per_page', 100 );
+  }
+  return $query;
+}
+add_action( 'pre_get_posts',  'wpfme_search_results_per_page'  );
+
+
+//create a permalink after the excerpt
+function wpfme_replace_excerpt($content) {
+  return str_replace('[...]',
+    '<a class="readmore" href="'. get_permalink() .'">Continue Reading</a>',
+    $content
+  );
+}
+add_filter('the_excerpt', 'wpfme_replace_excerpt');
+
+
+function wpfme_has_sidebar($classes) {
+    if (is_active_sidebar('sidebar')) {
+        // add 'class-name' to the $classes array
+        $classes[] = 'has_sidebar';
+    }
+    // return the $classes array
+    return $classes;
+}
+add_filter('body_class','wpfme_has_sidebar');
+
+
+// Create custom sizes
+// This is then pulled through to your theme useing the_post_thumbnail('custombig');
+if ( function_exists( 'add_image_size' ) ) {
+  add_image_size('customsmall', 300, 200, true); //narrow column
+  add_image_size('custombig', 400, 500, true); //wide column
+}
+
+
+// Stop images getting wrapped up in p tags when they get dumped out with the_content() for easier theme styling
+function wpfme_remove_img_ptags($content){
+  return preg_replace('/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(\/a>)?\s*<\/p>/iU', '\1\2\3', $content);
+}
+add_filter('the_content', 'wpfme_remove_img_ptags');
+
+
+// Call the google CDN version of jQuery for the frontend
+// Make sure you use this with wp_enqueue_script('jquery'); in your header
+function wpfme_jquery_enqueue() {
+  wp_deregister_script('jquery');
+  wp_register_script('jquery', "http" . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js", false, null);
+  wp_enqueue_script('jquery');
+}
+if (!is_admin()) add_action("wp_enqueue_scripts", "wpfme_jquery_enqueue", 11);
+
+
+//custom excerpt length
+function wpfme_custom_excerpt_length( $length ) {
+  //the amount of words to return
+  return 20;
+}
+add_filter( 'excerpt_length', 'wpfme_custom_excerpt_length');
+
+
+// Call Googles HTML5 Shim, but only for users on old versions of IE
+function wpfme_IEhtml5_shim () {
+  global $is_IE;
+  if ($is_IE)
+  echo '<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->';
+}
+add_action('wp_head', 'wpfme_IEhtml5_shim');
+
+
+// Remove the version number of WP
+// Warning - this info is also available in the readme.html file in your root directory - delete this file!
+remove_action('wp_head', 'wp_generator');
+
+
+// Obscure login screen error messages
+function wpfme_login_obscure(){ return '<strong>Sorry</strong>: Think you have gone wrong somwhere!';}
+add_filter( 'login_errors', 'wpfme_login_obscure' );
+
+
+// Disable the theme / plugin text editor in Admin
+define('DISALLOW_FILE_EDIT', true);
+
+?>

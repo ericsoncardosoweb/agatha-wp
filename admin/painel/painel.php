@@ -27,50 +27,6 @@ function admin_styles() {
 }
 add_action( 'admin_enqueue_scripts', 'admin_styles' );
 
-function fb_move_admin_bar() {
-    echo '
-    <style type="text/css">
-    body, html {
-    margin: 0!important;
-    padding: 0!important;
-    }
-    body.admin-bar #wphead {
-       padding-top: 0;
-    }
-    body.admin-bar #footer {
-       padding-bottom: 28px;
-    }
-    #wpadminbar {
-        top: auto !important;
-        bottom: 0;
-    }
-    #wpadminbar .quicklinks .menupop ul {
-        bottom: 28px;
-    }
-    #wpadminbar .menupop .ab-sub-wrapper, #wpadminbar .shortlink-input {
-        margin: 0;
-        padding: 0;
-        -webkit-box-shadow: 0 3px 5px rgba(0,0,0,.2);
-        box-shadow: inset 0px -5px 5px rgba(0,0,0,.2);
-        background: #999;
-        display: none;
-        position: absolute;
-        float: none;
-        bottom: 37px;
-    }
-    #wpadminbar .quicklinks .menupop ul li a {
-        color: #222!important;
-    }
-    #wpadminbar .quicklinks .menupop ul {
-        bottom: 0!important;
-    }
-    </style>';
-}
-// on backend area
-add_action( 'admin_head', 'fb_move_admin_bar' );
-// on frontend area
-add_action( 'wp_head', 'fb_move_admin_bar' );
-
 // Saudação customizada
 function replace_howdy( $wp_admin_bar ) {
     $my_account=$wp_admin_bar->get_node('my-account');

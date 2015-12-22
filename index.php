@@ -29,6 +29,7 @@
                 <?php echo get_sidebar(); ?>
             </sidebar>
         </div>
+        <?php var_dump(get_template_directory()) ?>
     </div>
 </section><!-- /#main -->
 
